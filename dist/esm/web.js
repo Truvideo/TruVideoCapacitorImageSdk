@@ -4,5 +4,9 @@ export class TruvideoSdkImageWeb extends WebPlugin {
         console.log('ECHO', options);
         return options;
     }
+    async editImage(options) {
+        console.log('ECHO', options);
+        return options;
+    }
 }
 //# sourceMappingURL=web.js.map

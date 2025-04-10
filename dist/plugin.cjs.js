@@ -11,6 +11,10 @@ class TruvideoSdkImageWeb extends core.WebPlugin {
         console.log('ECHO', options);
         return options;
     }
+    async editImage(options) {
+        console.log('ECHO', options);
+        return options;
+    }
 }
 
 var web = /*#__PURE__*/Object.freeze({

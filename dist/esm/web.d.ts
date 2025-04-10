@@ -6,4 +6,9 @@ export declare class TruvideoSdkImageWeb extends WebPlugin implements TruvideoSd
     }): Promise<{
         value: string;
     }>;
+    editImage(options: {
+        value: string;
+    }): Promise<{
+        value: string;
+    }>;
 }
