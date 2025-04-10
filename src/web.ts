@@ -7,4 +7,8 @@ export class TruvideoSdkImageWeb extends WebPlugin implements TruvideoSdkImagePl
     console.log('ECHO', options);
     return options;
   }
+  async editImage(options: { value: string }): Promise<{ value: string }> {
+    console.log('ECHO', options);
+    return options;
+  }
 }
