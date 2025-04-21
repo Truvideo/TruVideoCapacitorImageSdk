@@ -11,7 +11,8 @@ public class TruvideoSdkImagePlugin: CAPPlugin, CAPBridgedPlugin {
     public let identifier = "TruvideoSdkImagePlugin"
     public let jsName = "TruvideoSdkImage"
     public let pluginMethods: [CAPPluginMethod] = [
-        CAPPluginMethod(name: "echo", returnType: CAPPluginReturnPromise)
+        CAPPluginMethod(name: "echo", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "editImage", returnType: CAPPluginReturnPromise)
     ]
 
 
@@ -40,22 +41,11 @@ public class TruvideoSdkImagePlugin: CAPPlugin, CAPBridgedPlugin {
                    rootViewController.presentTruvideoSdkImageEditorView(preset: configuration, onComplete: { result in
                        if let editedImageUrl: URL = result.editedImageURL {
                            do{
-                               let jsonData = try JSONEncoder().encode(editedImageUrl.absoluteString)
-                               if let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [[String: Any]] {
-                                   call.resolve(["result": jsonDict])
-                               } else {
-                                   call.reject("JSON_ERROR", "Failed to serialize video info")
-                               }
+                                call.resolve(["result": jsoneditedImageUrl.absoluteStringDict])
                            }catch let error {
                                print(error.localizedDescription)
                                call.reject("CONCAT_VIDEO_ERROR", "Failed to concat video", error)
-                               //reject("Concat_error", error.localizedDescription, error)
                            }
-                          
-                           
-                           
-                           
-                           //call.resolve(editedImageUrl.absoluteString)
                        } else{
                            let error = NSError(domain:"com.TruvideoImageSDk.ImageSDK", code: 500, userInfo: [NSLocalizedDescriptionKey: "There is no result URL"])
                            call.reject("NO_URL_Found", "There is no result URL", error)
