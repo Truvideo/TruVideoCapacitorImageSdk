@@ -41,7 +41,7 @@ public class TruvideoSdkImagePlugin: CAPPlugin, CAPBridgedPlugin {
                    rootViewController.presentTruvideoSdkImageEditorView(preset: configuration, onComplete: { result in
                        if let editedImageUrl: URL = result.editedImageURL {
                            do{
-                                call.resolve(["result": jsoneditedImageUrl.absoluteStringDict])
+                                call.resolve(["result": editedImageUrl.absoluteString])
                            }catch let error {
                                print(error.localizedDescription)
                                call.reject("CONCAT_VIDEO_ERROR", "Failed to concat video", error)
