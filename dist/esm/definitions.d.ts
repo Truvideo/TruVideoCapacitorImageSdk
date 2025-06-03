@@ -5,8 +5,9 @@ export interface TruvideoSdkImagePlugin {
         value: string;
     }>;
     editImage(options: {
-        value: string;
+        inputPath: string;
+        outputPath: string;
     }): Promise<{
-        value: string;
+        result: string;
     }>;
 }
