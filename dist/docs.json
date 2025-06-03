@@ -23,15 +23,15 @@
       },
       {
         "name": "editImage",
-        "signature": "(options: { value: string; }) => Promise<{ value: string; }>",
+        "signature": "(options: { inputPath: string; outputPath: string; }) => Promise<{ result: string; }>",
         "parameters": [
           {
             "name": "options",
             "docs": "",
-            "type": "{ value: string; }"
+            "type": "{ inputPath: string; outputPath: string; }"
           }
         ],
-        "returns": "Promise<{ value: string; }>",
+        "returns": "Promise<{ result: string; }>",
         "tags": [],
         "docs": "",
         "complexTypes": [],

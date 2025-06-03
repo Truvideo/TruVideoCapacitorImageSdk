@@ -39,14 +39,14 @@ echo(options: { value: string; }) => Promise<{ value: string; }>
 ### editImage(...)
 
 ```typescript
-editImage(options: { value: string; }) => Promise<{ value: string; }>
+editImage(options: { inputPath: string; outputPath: string; }) => Promise<{ result: string; }>
 ```
 
-| Param         | Type                            |
-| ------------- | ------------------------------- |
-| **`options`** | <code>{ value: string; }</code> |
+| Param         | Type                                                    |
+| ------------- | ------------------------------------------------------- |
+| **`options`** | <code>{ inputPath: string; outputPath: string; }</code> |
 
-**Returns:** <code>Promise&lt;{ value: string; }&gt;</code>
+**Returns:** <code>Promise&lt;{ result: string; }&gt;</code>
 
 --------------------
 

@@ -1,29 +1,11 @@
 var capacitorTruvideoSdkImage = (function (exports, core) {
-    'use strict';
+	'use strict';
 
-    const TruvideoSdkImage = core.registerPlugin('TruvideoSdkImage', {
-        web: () => Promise.resolve().then(function () { return web; }).then((m) => new m.TruvideoSdkImageWeb()),
-    });
+	const TruvideoSdkImage = core.registerPlugin('TruvideoSdkVideo');
 
-    class TruvideoSdkImageWeb extends core.WebPlugin {
-        async echo(options) {
-            console.log('ECHO', options);
-            return options;
-        }
-        async editImage(options) {
-            console.log('ECHO', options);
-            return options;
-        }
-    }
+	exports.TruvideoSdkImage = TruvideoSdkImage;
 
-    var web = /*#__PURE__*/Object.freeze({
-        __proto__: null,
-        TruvideoSdkImageWeb: TruvideoSdkImageWeb
-    });
-
-    exports.TruvideoSdkImage = TruvideoSdkImage;
-
-    return exports;
+	return exports;
 
 })({}, capacitorExports);
 //# sourceMappingURL=plugin.js.map
