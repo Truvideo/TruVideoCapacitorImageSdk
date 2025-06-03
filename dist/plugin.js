@@ -1,7 +1,7 @@
 var capacitorTruvideoSdkImage = (function (exports, core) {
 	'use strict';
 
-	const TruvideoSdkImage = core.registerPlugin('TruvideoSdkVideo');
+	const TruvideoSdkImage = core.registerPlugin('TruvideoSdkImage');
 
 	exports.TruvideoSdkImage = TruvideoSdkImage;
 
