@@ -36,7 +36,9 @@ public class TruvideoSdkImagePlugin: CAPPlugin, CAPBridgedPlugin {
                    return
                }
                if let imageURL = URL(string: inputPath) as? URL ,let outputURL = URL(string: "file://\(outputPath)") as? URL {
-                   let configuration = TruvideoSdkImageEditorPreset(imageURL: imageURL, outputURL: outputURL)
+                        let output: TruvideoSdkImageFileDescriptor = .custom(rawPath: outputURL.absoluteString)
+                        let configuration = TruvideoSdkImageEditorPreset(imageURL: imageURL, output: output)
+         
                    
                    rootViewController.presentTruvideoSdkImageEditorView(preset: configuration, onComplete: { result in
                        if let editedImageUrl: URL = result.editedImageURL {
