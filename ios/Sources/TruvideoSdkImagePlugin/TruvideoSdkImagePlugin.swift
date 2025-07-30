@@ -25,7 +25,7 @@ public class TruvideoSdkImagePlugin: CAPPlugin, CAPBridgedPlugin {
     @objc func editImage(_ call: CAPPluginCall) {
         let inputPath = call.getString("inputPath") ?? ""
         let outputPath = call.getString("outputPath") ?? ""
-        launchImageEdit(inputPath: inputPath, outputPath: outputPath, call)
+        launchImageEdit(inputPath: inputPath, outputPath: "file://\(outputPath)", call)
     }
     func launchImageEdit(inputPath: String,outputPath: String,_ call: CAPPluginCall) {
            Task{
@@ -36,7 +36,9 @@ public class TruvideoSdkImagePlugin: CAPPlugin, CAPBridgedPlugin {
                    return
                }
                if let imageURL = URL(string: inputPath) as? URL ,let outputURL = URL(string: "file://\(outputPath)") as? URL {
-                   let configuration = TruvideoSdkImageEditorPreset(imageURL: imageURL, outputURL: outputURL)
+                        let output: TruvideoSdkImageFileDescriptor = .custom(rawPath: outputURL.absoluteString)
+                        let configuration = TruvideoSdkImageEditorPreset(imageURL: imageURL, output: output)
+         
                    
                    rootViewController.presentTruvideoSdkImageEditorView(preset: configuration, onComplete: { result in
                        if let editedImageUrl: URL = result.editedImageURL {
