@@ -16,7 +16,6 @@ public class TruvideoSdkImagePlugin extends Plugin {
     @PluginMethod
     public void echo(PluginCall call) {
         String value = call.getString("value");
-
         JSObject ret = new JSObject();
         ret.put("value",value);
         call.resolve(ret);
@@ -28,10 +27,6 @@ public class TruvideoSdkImagePlugin extends Plugin {
         String outputPath = call.getString("outputPath");
         mainCall = call;
         getContext().startActivity(new Intent(getContext(), ImageActivity.class).putExtra("inputPath",inputPath).putExtra("outputPath",outputPath));
-
-//        JSObject ret = new JSObject();
-//        //ret.put("value",value);
-//        call.resolve(ret);
     }
 
 }

@@ -29,25 +29,26 @@ public class TruvideoSdkImagePlugin: CAPPlugin, CAPBridgedPlugin {
     }
     func launchImageEdit(inputPath: String,outputPath: String,_ call: CAPPluginCall) {
            Task{
-               guard let rootViewController = UIApplication.shared.keyWindow?.rootViewController else {
+               guard let rootViewController = await UIApplication.shared.keyWindow?.rootViewController else {
                    print("E_NO_ROOT_VIEW_CONTROLLER", "No root view controller found")
                    let error = NSError(domain: "com.TruvideoImageSDk.ImageSDK", code: 500, userInfo: [NSLocalizedDescriptionKey: "No root view controller found"])
                    call.reject("E_NO_ROOT_VIEW_CONTROLLER", "No root view controller foundh",error)
                    return
                }
-               if let imageURL = URL(string: inputPath) as? URL ,let outputURL = URL(string: "file://\(outputPath)") as? URL {
+               if let imageURL = URL(string: inputPath) ,let outputURL = URL(string: "file://\(outputPath)") {
                         let output: TruvideoSdkImageFileDescriptor = .custom(rawPath: outputURL.absoluteString)
                         let configuration = TruvideoSdkImageEditorPreset(imageURL: imageURL, output: output)
          
                    
-                   rootViewController.presentTruvideoSdkImageEditorView(preset: configuration, onComplete: { result in
+                   await rootViewController.presentTruvideoSdkImageEditorView(preset: configuration, onComplete: { result in
                        if let editedImageUrl: URL = result.editedImageURL {
-                           do{
-                                call.resolve(["result": editedImageUrl.absoluteString])
-                           }catch let error {
-                               print(error.localizedDescription)
-                               call.reject("CONCAT_VIDEO_ERROR", "Failed to concat video", error)
-                           }
+                           call.resolve(["result": editedImageUrl.path])
+//                           do{
+//                                call.resolve(["result": editedImageUrl.path])
+//                           }catch let error {
+//                               print(error.localizedDescription)
+//                               call.reject("CONCAT_VIDEO_ERROR", "Failed to concat video", error)
+//                           }
                        } else{
                            let error = NSError(domain:"com.TruvideoImageSDk.ImageSDK", code: 500, userInfo: [NSLocalizedDescriptionKey: "There is no result URL"])
                            call.reject("NO_URL_Found", "There is no result URL", error)
