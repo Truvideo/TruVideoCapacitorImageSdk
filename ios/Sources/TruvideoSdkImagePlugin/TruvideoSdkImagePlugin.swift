@@ -48,13 +48,13 @@ public class TruvideoSdkImagePlugin: CAPPlugin, CAPBridgedPlugin {
          
                    
                    await rootViewController.presentTruvideoSdkImageEditorView(preset: configuration, onComplete: { result in
+                       //call.resolve(["result": result.editedImageUrl.absoluteString])
                        if let editedImageUrl: URL = result.editedImageURL {
                            do{
                                 call.resolve(["result": editedImageUrl.absoluteString])
                            }
                        } else{
-                           let error = NSError(domain:"com.TruvideoImageSDk.ImageSDK", code: 500, userInfo: [NSLocalizedDescriptionKey: "There is no result URL"])
-                           call.reject("NO_URL_Found", "There is no result URL", error)
+                           call.resolve(["result": ""])
                        }
                    })
                } else{

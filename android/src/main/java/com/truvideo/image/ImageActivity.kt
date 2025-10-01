@@ -36,10 +36,21 @@ class ImageActivity : ComponentActivity() {
 
         val inputPath = intent.getStringExtra("inputPath")
         val outputPath = intent.getStringExtra("outputPath")
+        if(inputPath == null || outputPath == null){
+            finish()
+            return
+        }
+        if (!outputPath.endsWith(".png") && !outputPath.endsWith(".jpg") && !outputPath.endsWith(".jpeg")) {
+            outputPath += ".png"
+        }
 
         launcher = registerForActivityResult(TruvideoSdkImageEditContract()){ resultPath: String? ->
             val ret =  JSObject();
-            ret.put("result",resultPath)
+            if(resultPath != null){
+                ret.put("result",resultPath)
+            }else{
+                ret.put("result","")
+            }
             TruvideoSdkImagePlugin.mainCall!!.resolve(ret);
             finish()
         }
