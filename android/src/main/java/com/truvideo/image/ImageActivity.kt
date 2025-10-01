@@ -19,7 +19,7 @@ import com.truvideo.sdk.image.ui.edit.activities.edit.TruvideoSdkImageEditParams
 
 class ImageActivity : ComponentActivity() {
 
-    var launcher : ActivityResultLauncher<TruvideoSdkImageEditParams>? = null
+    private var launcher : ActivityResultLauncher<TruvideoSdkImageEditParams>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,7 +35,7 @@ class ImageActivity : ComponentActivity() {
         }
 
         val inputPath = intent.getStringExtra("inputPath")
-        val outputPath = intent.getStringExtra("outputPath")
+        var outputPath = intent.getStringExtra("outputPath")
         if(inputPath == null || outputPath == null){
             finish()
             return
@@ -46,15 +46,11 @@ class ImageActivity : ComponentActivity() {
 
         launcher = registerForActivityResult(TruvideoSdkImageEditContract()){ resultPath: String? ->
             val ret =  JSObject();
-            if(resultPath != null){
-                ret.put("result",resultPath)
-            }else{
-                ret.put("result","")
-            }
+            ret.put("result",resultPath?: "")
             TruvideoSdkImagePlugin.mainCall!!.resolve(ret);
             finish()
         }
-        launcher!!.launch(TruvideoSdkImageEditParams(inputPath!!,outputPath!!))
+        launcher!!.launch(TruvideoSdkImageEditParams(inputPath, outputPath))
     }
 }
 
