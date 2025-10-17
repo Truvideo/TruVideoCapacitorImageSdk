@@ -1,6 +1,6 @@
 {
-  "name": "truvideo-capacitor-image-sdk",
-  "version": "0.0.1",
+  "name": "@trunpm/truvideo-capacitor-image-sdk",
+  "version": "0.0.3",
   "description": "Plugin for Image Module in capacitor js",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -13,13 +13,21 @@
     "ios/Sources",
     "ios/Tests",
     "Package.swift",
-    "TruvideoCapacitorImageSdk.podspec"
+    "TruvideoCapacitorImageSdk.podspec",
+    "TrunpmTruvideoCapacitorImageSdk.podspec"
   ],
   "author": "Truvideo",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Truvideo/TruVideoCapacitorImageSdk.git.git"
+  },
+  "ios": {
+    "podspec": "TruvideoCapacitorImageSdk.podspec"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "restricted"
   },
   "bugs": {
     "url": "https://github.com/Truvideo/TruVideoCapacitorImageSdk.git/issues"
@@ -76,5 +84,9 @@
     "android": {
       "src": "android"
     }
-  }
+  },
+  "dependencies": {
+    
+  },
+  "homepage": "https://github.com/Truvideo/TruVideoCapacitorImageSdk.git#readme"
 }
