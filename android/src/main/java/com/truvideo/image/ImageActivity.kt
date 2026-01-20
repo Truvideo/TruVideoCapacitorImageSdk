@@ -1,6 +1,7 @@
 package com.truvideo.image
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -16,6 +17,8 @@ import com.getcapacitor.JSObject
 import com.truvideo.image.ui.theme.AndroidTheme
 import com.truvideo.sdk.image.ui.edit.activities.edit.TruvideoSdkImageEditContract
 import com.truvideo.sdk.image.ui.edit.activities.edit.TruvideoSdkImageEditParams
+import java.io.File
+import java.util.logging.Logger
 
 class ImageActivity : ComponentActivity() {
 
@@ -37,20 +40,33 @@ class ImageActivity : ComponentActivity() {
         val inputPath = intent.getStringExtra("inputPath")
         var outputPath = intent.getStringExtra("outputPath")
         if(inputPath == null || outputPath == null){
+            TruvideoSdkImagePlugin.mainCall!!.reject("Input or Output path is invalid")
             finish()
             return
         }
         if (!outputPath.endsWith(".png") && !outputPath.endsWith(".jpg") && !outputPath.endsWith(".jpeg")) {
             outputPath += ".png"
         }
-
-        launcher = registerForActivityResult(TruvideoSdkImageEditContract()){ resultPath: String? ->
-            val ret =  JSObject();
-            ret.put("result",resultPath?: "")
-            TruvideoSdkImagePlugin.mainCall!!.resolve(ret);
+        if(!File(inputPath).exists()){
+            TruvideoSdkImagePlugin.mainCall!!.reject("Input path not exist")
             finish()
+            return
         }
-        launcher!!.launch(TruvideoSdkImageEditParams(inputPath, outputPath))
+
+        Log.d("inputPath","in $inputPath")
+        Log.d("resulPath","out $outputPath")
+        try{
+            launcher = registerForActivityResult(TruvideoSdkImageEditContract()){ resultPath: String? ->
+                val ret =  JSObject();
+                ret.put("result",resultPath?: "")
+                TruvideoSdkImagePlugin.mainCall!!.resolve(ret);
+                finish()
+            }
+            launcher!!.launch(TruvideoSdkImageEditParams(inputPath, outputPath))
+        }catch (e : Exception){
+            TruvideoSdkImagePlugin.mainCall!!.reject(e.message)
+        }
+
     }
 }
 
